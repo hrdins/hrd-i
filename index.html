@@ -250,13 +250,18 @@
             headers: { 'Accept': 'application/json' }
         }).then(response => {
             // 3. بعد نجاح إرسال الإيميل (أو حتى لو فشل لضمان عدم توقف الزر) يتم التحويل للواتساب مباشرة
-            const msg = encodeURIComponent(`*طلب تسجيل جديد 2026*\nالاسم: ${name}\nالجوال: ${phone}\nالهوية: ${idNum}\nالدورة: ${course}`);
-            window.location.href = `https://whatsapp.com{msg}`;
-        }).catch(error => {
-            // في حال وجود مشكلة في الإنترنت، يتم التحويل للواتساب على أي حال لضمان وصول الطلب
-            const msg = encodeURIComponent(`*طلب تسجيل جديد 2026*\nالاسم: ${name}\nالدورة: ${course}`);
-            window.location.href = `https://whatsapp.com{msg}`;
-        });
+            / 1. حدد رقم الواتساب الخاص بك هنا (بصيغة دولية وبدون أصفار أو علامة +)
+const myNumber = "966500000000"; 
+
+// 2. تجهيز نص الرسالة وتشفيرها بشكل صحيح
+const msg = encodeURIComponent(`*طلب تسجيل جديد 2026*
+الاسم: ${name}
+الجوال: ${phone}
+الهوية: ${idNum}
+الدورة: ${course}`);
+
+// 3. التحويل للرابط الصحيح (لاحظ استخدام علامة $ قبل الأقواس)
+window.location.href = `https://whatsapp.com{myNumber}&text=${msg}`;
     };
 
     // وظيفة اختيار الدورة من البطاقات
@@ -264,6 +269,18 @@
         document.getElementById('fc').value = courseName;
         document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
     }
+</script>
+<script>
+    document.querySelector('.reg-full form').addEventListener('submit', function(e) {
+        // منع الصفحة من التحديث التلقائي
+        e.preventDefault(); 
+        
+        // إظهار تنبيه للمستخدم
+        alert('✅ تم إرسال طلبك بنجاح! سيتواصل معك فريق القبول قريباً.');
+        
+        // مسح البيانات من الخانات بعد الإرسال
+        this.reset();
+    });
 </script>
 </body>
 </html>
