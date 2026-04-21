@@ -262,18 +262,49 @@
 </section>
     <footer><p>© 2026 معهد تطوير الموارد البشرية | الخفجي، المملكة العربية السعودية</p></footer>
 
-    <script>
-        function enroll(c) { document.getElementById('fcourse').value = c; document.getElementById('register').scrollIntoView({ behavior: 'smooth' }); }
-        document.getElementById('hrdiFinalForm').onsubmit = function(e) {
-            e.preventDefault();
-            const n = document.getElementById('fname').value;
-            const p = document.getElementById('fphone').value;
-            const i = document.getElementById('fid').value;
-            const ed = document.getElementById('fedu').value;
-            const co = document.getElementById('fcourse').value;
-            const text = encodeURIComponent(`طلب تسجيل رسمي 2026\nالاسم: ${n}\nالجوال: ${p}\nالهوية: ${i}\nالمؤهل: ${ed}\nالدورة: ${co}`);
-            window.open(`https://wa.me?text=${text}`, '_blank');
-        };
-    </script>
+   <script>
+    // وظيفة اختيار الدورة والنزول للنموذج
+    function enroll(c) { 
+        document.getElementById('fcourse').value = c; 
+        document.getElementById('register').scrollIntoView({ behavior: 'smooth' }); 
+    }
+
+    // وظيفة الإرسال المباشر للواتساب
+    document.getElementById('hrdiFinalForm').onsubmit = function(e) {
+        e.preventDefault(); // منع تحديث الصفحة
+        
+        // جلب البيانات
+        const n = document.getElementById('fname').value;
+        const p = document.getElementById('fphone').value;
+        const i = document.getElementById('fid').value;
+        const nt = document.getElementById('fnat').value;
+        const ed = document.getElementById('fedu').value;
+        const ci = document.getElementById('fcity').value;
+        const co = document.getElementById('fcourse').value;
+        const jb = document.getElementById('fjob').value;
+
+        // صياغة الرسالة
+        const text = `*طلب تسجيل رسمي 2026*%0A%0A` +
+                     `*الاسم:* ${n}%0A` +
+                     `*الجوال:* ${p}%0A` +
+                     `*الهوية:* ${i}%0A` +
+                     `*الجنسية:* ${nt}%0A` +
+                     `*المؤهل:* ${ed}%0A` +
+                     `*المدينة:* ${ci}%0A` +
+                     `*الحالة:* ${jb}%0A` +
+                     `*الدورة:* ${co}`;
+
+        // الرابط المباشر
+        const whatsappUrl = `https://whatsapp.com{text}`;
+        
+        // التحويل المباشر الفوري
+        window.location.href = whatsappUrl;
+    };
+</script>
+
+
+
+
+
 </body>
 </html>
