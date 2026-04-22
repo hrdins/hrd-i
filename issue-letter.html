@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <title>إصدار خطاب الموافقة الرسمي | HRDI</title>
+    <link href="https://googleapis.com" rel="stylesheet">
+    <style>
+        :root { --primary: #1d2b58; --gold: #c5a059; --bg: #f4f7f9; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
+        body { background: var(--bg); padding-bottom: 50px; }
+
+        @page { size: A4; margin: 0; }
+
+        /* منطقة التحكم (تختفي عند الطباعة) */
+        .no-print-area { display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
+        .form-box { width: 100%; max-width: 600px; background: white; padding: 30px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); border-top: 8px solid var(--gold); }
+        input, select { width: 100%; padding: 12px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 8px; }
+        .btn-issue { width: 100%; background: var(--gold); color: var(--primary); padding: 18px; border: none; border-radius: 10px; font-size: 1.3rem; font-weight: 900; cursor: pointer; }
+        
+        /* أزرار التحكم بعد العرض */
+        .controls-after { display: none; margin-top: 20px; gap: 10px; }
+        .btn-print-now { background: #007bff; color: white; padding: 15px 40px; border: none; border-radius: 50px; font-weight: bold; cursor: pointer; font-size: 1.2rem; }
+        .btn-edit { background: #6c757d; color: white; padding: 15px 30px; border: none; border-radius: 50px; cursor: pointer; }
+
+        /* --- تصميم الورقة الرسمية A4 --- */
+        #officialLetter { 
+            display: none; /* مخفي في البداية */
+            background: white; 
+            width: 210mm; 
+            min-height: 297mm; 
+            margin: 20px auto; 
+            padding: 20mm 25mm; 
+            color: #000; 
+            position: relative; 
+            box-shadow: 0 0 20px rgba(0,0,0,0.2);
+        }
+
+        .letter-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 2px solid #000; padding-bottom: 10px; margin-bottom: 30px; }
+        .header-logo img { height: 90px; }
+        .letter-title { text-align: center; margin: 30px 0; font-weight: 900; text-decoration: underline; font-size: 1.8rem; }
+        .letter-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
+        .letter-table th, .letter-table td { border: 1.5px solid #000; padding: 12px; text-align: center; font-size: 1.2rem; }
+        .letter-table th { background: #f2f2f2; }
+        .letter-body { text-align: justify; font-size: 1.35rem; line-height: 2.2; margin-bottom: 80px; }
+        .letter-footer { display: flex; justify-content: flex-end; position: relative; margin-top: 60px; }
+        .sig-section { text-align: center; width: 250px; position: relative; }
+        
+        .stamp-final { 
+            position: absolute !important; 
+            top: -40px !important; 
+           left: 330px !important; 
+            width: 210px !important; 
+            opacity: 0.85; 
+            transform: rotate(-10deg); 
+            z-index: 9999; 
+            pointer-events: none; 
+        }
+
+        /* تنسيق الطباعة */
+        @media print {
+            body { background: white; padding: 0; margin: 0; }
+            .no-print-area, .controls-after { display: none !important; }
+            #officialLetter { 
+                display: block !important; 
+                margin: 0 !important; 
+                padding: 15mm 20mm !important; 
+                width: 100% !important; 
+                box-shadow: none !important; 
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="no-print-area" id="inputSection">
+        <div class="form-box">
+            <h2 style="text-align: center; margin-bottom: 20px;">بوابة إصدار خطاب الموافقة</h2>
+            <form id="issueForm">
+                <input type="text" id="stuName" placeholder="الاسم الرباعي الكامل" required>
+                <input type="text" id="stuId" placeholder="رقم الهوية الوطنية" required>
+                <select id="stuCourse" required>
+                    <option value="">-- اختر التخصص --</option>
+                    <option value="دبلوم الحاسب وتقنية المعلومات (شبكات)">دبلوم الحاسب وتقنية المعلومات (شبكات)</option>
+                    <option value="دبلوم التقنية الإدارية (إدارة مكتبية)">دبلوم التقنية الإدارية (إدارة مكتبية)</option>
+                </select>
+                <button type="submit" class="btn-issue">إصدار ومعاينة الخطاب 📄</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- منطقة المعاينة والخطاب -->
+    <div id="officialLetter">
+        <div class="letter-header">
+            <div style="text-align: right; font-weight: bold;">
+                <p>المملكة العربية السعودية</p>
+                <p>معهد تطوير الموارد البشرية</p>
+                <p>العالي للتدريب بالخفجي</p>
+            </div>
+            <div class="header-logo"><img src="logo.png"></div>
+            <div style="text-align: left; font-weight: bold;">
+                <p>التاريخ: <span id="p-date"></span></p>
+                <p>الرقم: 2026/HRD/<span id="p-ref"></span></p>
+            </div>
+        </div>
+
+        <h2 class="letter-title">( طـلـب مـوافـقـة )</h2>
+
+        <table class="letter-table">
+            <tr><th style="width: 10%;">م</th><th style="width: 60%;">الاســــــــم</th><th style="width: 30%;">الهوية</th></tr>
+            <tr><td>1</td><td id="p-name" style="font-weight: bold;"></td><td id="p-id"></td></tr>
+        </table>
+
+        <div class="letter-body">
+            <p><strong>السلام عليكم ورحمة الله وبركاته وبعد،،،،</strong></p>
+            <p>نفيدكم نحن <strong>معهد تطوير الموارد البشرية العالي للتدريب بالخفجي</strong> بأن الموضح بياناته بعاليه قد تقدم لنا بطلب دراسة <strong id="p-course"></strong> ولمدة <strong>عامين ونصف</strong> تدريبين وبعدد ساعات (<span id="p-hours"></span>) ساعة أكاديمية.</p>
+            <p>ونفيدكم بأنه لا مانع لدينا من قبوله بالدبلوم، علماً بأن الدراسة <strong>عن بُعد</strong> وبدون اشتراط التفرغ التام أو الجزئي للدراسة وسوف يقوم بسداد رسوم الدراسة على حسابه الخاص.</p>
+            <p>نرجو منكم تزويدنا بصورة من خطاب الموافقة بالتحاق المتدرب للدبلوم، حتى يتسنى لنا رفع بياناته إلى المؤسسة العامة للتدريب التقني والمهني لاعتماده.</p>
+            <p><strong>وتفضلوا بقبول فائق الاحترام والتقدير،،،،</strong></p>
+        </div>
+
+        <div class="letter-footer">
+            <div class="sig-section">
+                <p style="font-weight: bold; font-size: 1.0rem;">مدير المعهد</p><br>
+                <p style="font-weight: 900; font-size: 1.1rem;">علي الحربي</p>
+                <img src="stamp.png" class="stamp-final">
+            </div>
+        </div>
+    </div>
+
+    <!-- أزرار تظهر بعد الإصدار فقط للمعاينة -->
+    <div class="no-print-area controls-after" id="controlsAfter">
+        <button class="btn-print-now" onclick="window.print()">🖨️ طباعة الخطاب الآن</button>
+        <button class="btn-edit" onclick="location.reload()">تعديل البيانات / طلب جديد</button>
+    </div>
+
+    <script>
+        document.getElementById('issueForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const course = document.getElementById('stuCourse').value;
+            let hours = course.includes("الحاسب") ? "79" : "80";
+
+            // تعبئة البيانات
+            document.getElementById('p-name').innerText = document.getElementById('stuName').value;
+            document.getElementById('p-id').innerText = document.getElementById('stuId').value;
+            document.getElementById('p-course').innerText = course;
+            document.getElementById('p-hours').innerText = hours;
+            document.getElementById('p-date').innerText = new Date().toLocaleDateString('ar-SA');
+            document.getElementById('p-ref').innerText = Math.floor(1000 + Math.random() * 9000);
+
+            // إخفاء الفورم وإظهار الخطاب والأزرار
+            document.getElementById('inputSection').style.display = 'none';
+            document.getElementById('officialLetter').style.display = 'block';
+            document.getElementById('controlsAfter').style.display = 'flex';
+
+            // الصعود للأعلى للمعاينة
+            window.scrollTo(0, 0);
+        });
+    </script>
+</body>
+</html>
