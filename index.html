@@ -4,120 +4,111 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>معهد تطوير الموارد البشرية | HRDI 2026</title>
-    <!-- استدعاء الخط الفخم: IBM Plex Sans Arabic -->
-    <link href="https://googleapis.com" rel="stylesheet">
+    
+    <!-- الخطوط: Cairo الفخم -->
+    <link rel="preconnect" href="https://googleapis.com">
+    <link rel="preconnect" href="https://gstatic.com" crossorigin>
+    <link href="https://googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+
     <style>
-        :root { --primary: #1d2b58; --gold: #c5a059; --bg: #f8fafc; --red: #ce1126; --white: #ffffff; }
-        * { box-sizing: border-box; outline: none; }
-        
-        /* تطبيق الخط الجديد على الموقع بالكامل */
-        body { font-family: 'IBM Plex Sans Arabic', sans-serif; margin: 0; background: var(--bg); color: #333; scroll-behavior: smooth; overflow-x: hidden; }
+        :root { 
+            --primary: #1d2b58; 
+            --gold: #c5a059; 
+            --white: #ffffff; 
+            --bg: #f8fafc;
+        }
 
-        /* شريط الأخبار */
-        .ticker { background: var(--red); color: white; padding: 12px; overflow: hidden; font-weight: 600; border-bottom: 3px solid var(--gold); }
-        
-        /* الهيدر المتجاوب */
-        header { background: var(--white); padding: 20px 8%; display: flex; justify-content: space-between; align-items: center; box-shadow: 0 4px 25px rgba(0,0,0,0.08); position: sticky; top: 0; z-index: 1000; }
-        .logo-section { display: flex; align-items: center; gap: 20px; }
-        .logo-section img { height: 90px; width: auto; }
-        .logo-text h2 { margin: 0; color: var(--primary); font-size: 2.2rem; font-weight: 700; line-height: 1.1; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif !important; }
+        body { background: var(--bg); color: #334155; scroll-behavior: smooth; overflow-x: hidden; line-height: 1.6; }
 
-        nav ul { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
-        nav a { text-decoration: none; color: var(--primary); font-weight: 600; font-size: 1rem; transition: 0.3s; }
+        /* الهيدر */
+        header { 
+            background: #ffffff; padding: 15px 8%; display: flex; justify-content: space-between; 
+            align-items: center; box-shadow: 0 4px 20px rgba(0,0,0,0.1); position: sticky; top: 0; z-index: 1000; 
+        }
+        .logo-section { display: flex; align-items: center; gap: 15px; }
+        .main-logo { height: 70px; width: auto; object-fit: contain; }
+        .logo-text h2 { color: var(--primary); font-size: 1.2rem; font-weight: 900; }
+
+        nav ul { list-style: none; display: flex; gap: 25px; }
+        nav a { text-decoration: none; color: var(--primary); font-weight: 700; font-size: 1rem; transition: 0.3s; }
         nav a:hover { color: var(--gold); }
 
-        /* القسم الرئيسي (Hero) */
-        .hero { background: linear-gradient(135deg, var(--primary) 0%, #2a3d7d 100%); color: white; padding: 110px 20px; text-align: center; }
-        .hero h1 { font-size: 4rem; font-weight: 700; margin: 0; text-shadow: 2px 4px 15px rgba(0,0,0,0.4); line-height: 1.3; }
-        .hero p { font-size: 1.6rem; margin-top: 25px; opacity: 0.9; font-weight: 300; }
-
-        /* إحصائيات المعهد */
-        .stats { display: flex; justify-content: space-around; background: var(--primary); color: white; padding: 45px 5%; text-align: center; border-bottom: 8px solid var(--gold); }
-        .stat-item h2 { color: var(--gold); margin: 0; font-size: 3.2rem; font-weight: 700; }
-        .stat-item p { font-weight: 500; font-size: 1.2rem; margin-top: 5px; }
-
-        /* الرؤية والرسالة */
-        .vision-section { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; padding: 90px 10%; background: var(--white); }
-        .vision-box { padding: 45px; border-radius: 35px; background: var(--bg); border-right: 12px solid var(--gold); }
-        .vision-box h2 { color: var(--primary); font-weight: 700; font-size: 2.4rem; margin-top: 0; }
-        .vision-box p { font-size: 1.2rem; line-height: 1.9; color: #444; }
-
-        .container { max-width: 1450px; margin: 0 auto; padding: 0 25px; }
-
-        /* الدورات بالتفاصيل */
-        .section-title { text-align: center; color: var(--primary); font-weight: 700; font-size: 3rem; margin: 90px 0 50px; position: relative; }
-        .section-title::after { content: ''; display: block; width: 80px; height: 5px; background: var(--gold); margin: 15px auto; border-radius: 10px; }
-        
-        .course-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin-bottom: 70px; }
-        .card { background: var(--white); border-radius: 30px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.08); border-top: 8px solid var(--gold); display: flex; flex-direction: column; transition: 0.4s; }
-        .card:hover { transform: translateY(-15px); box-shadow: 0 30px 60px rgba(29, 43, 88, 0.15); }
-        
-        .visual-banner { height: 130px; display: flex; justify-content: center; align-items: center; font-size: 3.8rem; color: white; }
-        .bg-it { background: linear-gradient(45deg, #1d2b58, #3a53a4); }
-        .bg-admin { background: linear-gradient(45deg, #c5a059, #e6b86b); }
-        .bg-lang { background: linear-gradient(45deg, #ce1126, #ff4d4d); }
-        .bg-pc { background: linear-gradient(45deg, #2980b9, #3498db); }
-        
-        .card-content { padding: 30px; flex-grow: 1; text-align: center; }
-        .card h3 { color: var(--primary); font-size: 1.4rem; font-weight: 700; margin-bottom: 20px; }
-        .card ul { padding-right: 20px; margin: 0; font-size: 0.95rem; color: #555; text-align: right; line-height: 1.8; flex-grow: 1; }
-        .enroll-btn { background: var(--primary); color: white; border: none; padding: 20px; font-family: 'IBM Plex Sans Arabic'; font-weight: 600; cursor: pointer; width: 100%; font-size: 1.2rem; transition: 0.3s; }
-        .enroll-btn:hover { background: var(--gold); }
-
-        /* آراء المتدربين (رجال) */
-        .testi-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 35px; margin-bottom: 80px; }
-        .testi-card { background: var(--white); padding: 45px; border-radius: 35px; box-shadow: 0 15px 35px rgba(0,0,0,0.06); border-right: 12px solid var(--gold); }
-        .testi-info { display: flex; align-items: center; gap: 20px; margin-top: 30px; }
-        .testi-info .avatar { width: 70px; height: 70px; background: #eee; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 2.2rem; border: 4px solid var(--gold); }
-
-        /* الخريطة */
-        .map-box { width: 100%; height: 550px; border-radius: 45px; overflow: hidden; border: 12px solid var(--white); box-shadow: 0 25px 50px rgba(0,0,0,0.12); margin-bottom: 100px; }
-
-        /* نموذج التسجيل العملاق */
-        .reg-full { background: var(--white); max-width: 1100px; margin: 90px auto; padding: 70px; border-radius: 50px; box-shadow: 0 50px 100px rgba(0,0,0,0.15); border-right: 20px solid var(--gold); }
-        .reg-full h2 { text-align: center; color: var(--primary); font-size: 2.8rem; font-weight: 700; margin-bottom: 60px; }
-        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px; }
-        .form-group { display: flex; flex-direction: column; }
-        label { font-weight: 600; margin-bottom: 12px; color: var(--primary); font-size: 1.15rem; }
-        input, select { padding: 20px; border: 2px solid #edf2f7; border-radius: 18px; font-family: 'IBM Plex Sans Arabic'; font-size: 1.1rem; background: #fdfdfd; transition: 0.3s; }
-        input:focus { border-color: var(--gold); background: #fff; box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.1); }
-        .submit-btn { width: 100%; background: var(--gold); color: var(--white); padding: 28px; border: none; border-radius: 22px; font-size: 1.8rem; font-weight: 700; cursor: pointer; transition: 0.4s; margin-top: 40px; box-shadow: 0 15px 30px rgba(197, 160, 89, 0.3); }
-        .submit-btn:hover { background: var(--primary); transform: translateY(-7px); }
-
-        /* واتساب */
-        .wa-float { position: fixed; bottom: 45px; left: 45px; background: #25d366; width: 80px; height: 80px; border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 10000; box-shadow: 0 15px 35px rgba(37, 211, 102, 0.4); transition: 0.4s; }
-        .wa-float:hover { transform: scale(1.1) rotate(10deg); }
-
-        footer { background: var(--primary); color: var(--white); text-align: center; padding: 70px; font-size: 1.4rem; font-weight: 300; }
-
-        /* 📱 الجوال */
-        @media (max-width: 1024px) { .course-grid, .vision-section { grid-template-columns: 1fr; } .hero h1 { font-size: 2.8rem; } header { padding: 20px 4%; } }
-        @media (max-width: 768px) {
-            header { flex-direction: column; text-align: center; gap: 20px; }
-            .logo-section img { height: 75px !important; }
-            .logo-text h2 { font-size: 1.5rem; }
-            nav ul { gap: 12px; font-size: 0.85rem; flex-wrap: wrap; justify-content: center; }
-            .hero h1 { font-size: 2rem; }
-            .stats { flex-direction: column; gap: 40px; }
-            .testi-grid, .form-row { grid-template-columns: 1fr; }
-            .reg-full { padding: 40px 25px; margin: 20px; border-radius: 35px; }
-            .reg-full h2 { font-size: 2rem; }
-            .submit-btn { font-size: 1.4rem; }
+        /* الواجهة (Hero) */
+        .hero { 
+            height: 70vh;
+            background: linear-gradient(rgba(29, 43, 88, 0.8), rgba(29, 43, 88, 0.8)), 
+                        url('https://pixabay.com');
+            background-size: cover; background-position: center;
+            display: flex; flex-direction: column; justify-content: center; align-items: center; 
+            text-align: center; color: white; padding: 0 20px; border-bottom: 8px solid var(--gold);
         }
+        .hero h1 { font-size: 3.5rem; font-weight: 900; line-height: 1.3; }
+        .hero p { font-size: 1.5rem; color: var(--gold); margin-top: 15px; font-weight: 600; }
+
+        /* الإحصائيات */
+        .stats-bar { 
+            background: var(--primary); padding: 40px 10%; display: flex; justify-content: space-around; 
+            text-align: center; color: white; width: 85%; margin: -50px auto 0; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        .stat-item h2 { color: var(--gold); font-size: 2.5rem; font-weight: 900; }
+
+        /* قسم الرؤية */
+        .vision-section { padding: 80px 10%; display: grid; grid-template-columns: 1fr 1fr; gap: 30px; background: white; }
+        .vision-card { padding: 40px; border-radius: 25px; background: var(--bg); border-right: 12px solid var(--gold); }
+        .vision-card h3 { color: var(--primary); font-weight: 900; margin-bottom: 15px; font-size: 1.8rem; }
+
+        /* الدورات في سطر واحد */
+        .container { max-width: 1450px; margin: 0 auto; padding: 80px 20px; }
+        .course-grid { display: flex; flex-wrap: nowrap; gap: 20px; overflow-x: auto; padding-bottom: 30px; }
+        
+        .c-card { 
+            min-width: 330px; background: white; border-radius: 25px; overflow: hidden; 
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-top: 7px solid var(--gold);
+            display: flex; flex-direction: column; transition: 0.3s;
+        }
+        .c-card:hover { transform: translateY(-10px); }
+        
+        /* الصور داخل الكروت */
+        .c-img { height: 180px; width: 100%; background: #eee; overflow: hidden; }
+        .c-img img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
+        .c-card:hover .c-img img { transform: scale(1.1); }
+
+        .c-body { padding: 25px; flex-grow: 1; text-align: right; }
+        .c-body h3 { font-size: 1.15rem; color: var(--primary); font-weight: 900; height: 50px; display: flex; align-items: center; margin-bottom: 10px; }
+        .c-body .duration { color: var(--gold); font-weight: bold; display: block; margin-bottom: 15px; }
+        .c-body li { list-style: none; margin-bottom: 8px; font-size: 0.9rem; color: #555; position: relative; padding-right: 20px; }
+        .c-body li::before { content: "✦"; color: var(--gold); position: absolute; right: 0; }
+
+        .enroll-btn { background: var(--primary); color: white; border: none; padding: 16px; width: 100%; font-weight: 900; cursor: pointer; transition: 0.3s; font-size: 1.1rem; }
+        .enroll-btn:hover { background: var(--gold); color: var(--primary); }
+
+        /* نموذج التسجيل */
+        .reg-section { max-width: 900px; margin: 80px auto; background: white; padding: 60px; border-radius: 40px; box-shadow: 0 30px 80px rgba(0,0,0,0.1); border-right: 20px solid var(--gold); }
+        .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px; }
+        input, select { padding: 18px; border: 2px solid #eee; border-radius: 15px; width: 100%; background: #fafafa; font-size: 1rem; }
+        .submit-btn { width: 100%; background: var(--gold); color: var(--primary); padding: 22px; border: none; border-radius: 20px; font-size: 1.6rem; font-weight: 900; cursor: pointer; transition: 0.4s; }
+
+        /* الواتساب */
+        .wa-float { position: fixed; bottom: 30px; right: 30px; background: #25d366; width: 70px; height: 70px; border-radius: 50%; display: flex; justify-content: center; align-items: center; z-index: 1000; box-shadow: 0 8px 25px rgba(37, 211, 102, 0.3); transition: 0.3s; }
+        .wa-float:hover { transform: scale(1.1); }
+        .wa-float svg { width: 40px; height: 40px; fill: white; }
+
+        footer { background: var(--primary); color: white; text-align: center; padding: 50px; }
+
+        @media (max-width: 768px) { .vision-grid, .form-row { grid-template-columns: 1fr; } .hero h1 { font-size: 2.2rem; } }
     </style>
 </head>
 <body>
 
-    <div class="ticker"><marquee scrollamount="11">💎 القبول والتسجيل لعام 2026 مستمر .. دبلومات معتمدة من المؤسسة العامة للتدريب التقني والمهني .. دورات إنجليزية عالمية بمدربين أجانب .. بادر بالتسجيل الآن</marquee></div>
-
-    <header id="home">
+    <header>
         <div class="logo-section">
-            <img src="logo.jpg" alt="شعار المعهد">
+            <img src="logo.JPG" alt="شعار المعهد" class="main-logo">
             <div class="logo-text"><h2>معهد تطوير الموارد البشرية</h2></div>
         </div>
         <nav>
             <ul>
-                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#">الرئيسية</a></li>
                 <li><a href="#vision">رؤيتنا</a></li>
                 <li><a href="#courses">الدورات</a></li>
                 <li><a href="#register">التسجيل</a></li>
@@ -126,161 +117,148 @@
     </header>
 
     <section class="hero">
-        <h1>صناعة المستقبل تبدأ من المهارة 🏛️</h1>
-        <p>نؤهلك باحترافية لتكون الخيار الأول في سوق العمل لعام 2026</p>
+        <h1>الريادة في صناعة الكفاءات.. <br> والتميز في صياغة المستقبل</h1>
+        <p>بوابتك نحو النجاح المهني المعتمد لعام 2026</p>
     </section>
 
-    <section class="stats">
-        <div class="stat-item"><h2>+10,000</h2><p>خريج ناجح ومؤهل</p></div>
-        <div class="stat-item"><h2>2026</h2><p>أحدث المناهج الدولية</p></div>
-        <div class="stat-item"><h2>100%</h2><p>تدريب عملي وميداني</p></div>
-    </section>
+    <div class="stats-bar">
+        <div class="stat-item"><h2>+15k</h2><p>خريج ناجح</p></div>
+        <div class="stat-item"><h2>98%</h2><p>نسبة التوظيف</p></div>
+        <div class="stat-item"><h2>+25</h2><p>عام من الخبرة</p></div>
+    </div>
 
     <section class="vision-section" id="vision">
-        <div class="vision-box">
-            <h2>رؤية المعهد 👁️</h2>
-            <p>أن نكون المركز الرائد والأول في تدريب وتأهيل الكوادر الوطنية، للمساهمة بفعالية في رؤية المملكة 2030 من خلال مخرجات تعليمية تضاهي المعايير العالمية.</p>
+        <div class="vision-card">
+            <h3>رؤيتنا الاستراتيجية</h3>
+            <p>أن نكون الصرح التدريبي الأول في المنطقة، عبر تقديم تعليم مهني يدمج بين العلم الأكاديمي والخبرة التطبيقية لتخريج قادة الغد.</p>
         </div>
-        <div class="vision-box">
-            <h2>رسالة المعهد ✉️</h2>
-            <p>تقديم برامج تدريبية تخصصية (تقنية وإدارية ولغوية) تجمع بين المنهج العلمي والتطبيق المهني، وتوفير بيئة تعليمية متطورة تساعد المتدربين على التفوق.</p>
+        <div class="vision-card">
+            <h3>رسالتنا السامية</h3>
+            <p>تمكين الكوادر الوطنية وتطوير مهاراتهم عبر برامج دبلومات ودورات معتمدة عالمياً، تلبي احتياجات سوق العمل المتسارعة.</p>
         </div>
     </section>
 
-    <div class="container">
-        <h2 class="section-title" id="courses">البرامج التدريبية المتاحة 🎓</h2>
+    <div class="container" id="courses">
+        <h2 style="text-align:center; color:var(--primary); margin-bottom:40px; font-weight:900; font-size: 2.5rem;">برامجنا التدريبية المعتمدة</h2>
         <div class="course-grid">
-            <div class="card">
-                <div class="visual-banner bg-it">🌐</div>
-                <div class="card-content">
-                    <h3>دبلوم شبكات الحاسب</h3>
-                    <ul><li>إدارة سيسكو (CCNA) 2026.</li><li>أمن وحماية الشبكات المتقدم.</li><li>إدارة السيرفرات السحابية.</li></ul>
+            
+            <!-- دبلوم الحاسب -->
+            <div class="c-card">
+                <div class="c-img">
+                    <img src="https://pexels.com" alt="Networks">
                 </div>
-                <button onclick="enroll('دبلوم شبكات الحاسب')" class="enroll-btn">حجز مقعد الآن</button>
-            </div>
-            <div class="card">
-                <div class="visual-banner bg-admin">📂</div>
-                <div class="card-content">
-                    <h3>دبلوم الإدارة المكتبية</h3>
-                    <ul><li>السكرتارية التنفيذية الذكية.</li><li>الذكاء الاصطناعي الإداري.</li><li>تحرير التقارير الرقمية.</li></ul>
+                <div class="c-body">
+                    <h3>دبلوم الحاسب وتقنية المعلومات (شبكات)</h3>
+                    <span class="duration">المدة: سنتين ونصف</span>
+                    <ul>
+                        <li>إدارة وصيانة الشبكات الحديثة</li>
+                        <li>تأهيل لشهادات سيسكو ومايكروسوفت</li>
+                        <li>تدريب عملي على السيرفرات</li>
+                    </ul>
                 </div>
-                <button onclick="enroll('دبلوم الإدارة المكتبية')" class="enroll-btn">حجز مقعد الآن</button>
+                <button class="enroll-btn" onclick="document.getElementById('fc').value='دبلوم الحاسب وتقنية المعلومات (شبكات)'; location.href='#register'">سجل الآن</button>
             </div>
-            <div class="card">
-                <div class="visual-banner bg-lang">🇬🇧</div>
-                <div class="card-content">
-                    <h3>دورات اللغة الإنجليزية</h3>
-                    <p style="color:var(--red); font-weight:700; font-size:0.85rem; margin-bottom:10px;">مدربون أجانب | منهج بريطاني</p>
-                    <ul><li>منهج أكسفورد البريطاني الحديث.</li><li>نخبة من المدربين الأجانب (Native).</li><li>تحضير الآيلتس IELTS المطور.</li></ul>
-                </div>
-                <button onclick="enroll('دورات اللغة الإنجليزية')" class="enroll-btn" style="background:var(--red);">حجز مقعد الآن</button>
-            </div>
-            <div class="card">
-                <div class="visual-banner bg-pc">🖥️</div>
-                <div class="card-content">
-                    <h3>دورات الحاسب الآلي</h3>
-                    <ul><li>إتقان Office 365 المتقدم.</li><li>شهادة الـ ICDL الدولية المحدثة.</li><li>إدخال البيانات والطباعة السريعة.</li></ul>
-                </div>
-                <button onclick="enroll('دورات الحاسب الآلي')" class="enroll-btn">حجز مقعد الآن</button>
-            </div>
-        </div>
 
-        <h2 class="section-title">قالوا عن تجربتهم في المعهد ✨</h2>
-        <div class="testi-grid">
-            <div class="testi-card">
-                <p>"المنهج البريطاني في الإنجليزية مع المدربين الأجانب كان تجربة استثنائية، ساعدني كثيراً في الحصول على وظيفة أحلامي."</p>
-                <div class="testi-info"><div class="avatar">👤</div><div><h4>أ. محمد العتيبي</h4><small>خريج دورة اللغة</small></div></div>
+            <!-- دبلوم الإدارة -->
+            <div class="c-card">
+                <div class="c-img">
+                    <img src="https://pexels.com" alt="Management">
+                </div>
+                <div class="c-body">
+                    <h3>دبلوم التقنية الإدارية (إدارة مكتبية)</h3>
+                    <span class="duration">المدة: سنتين ونصف</span>
+                    <ul>
+                        <li>السكرتارية التنفيذية وإدارة المكاتب</li>
+                        <li>إدارة الوقت والاجتماعات الاحترافية</li>
+                        <li>إتقان المراسلات والتقارير الإدارية</li>
+                    </ul>
+                </div>
+                <button class="enroll-btn" onclick="document.getElementById('fc').value='دبلوم التقنية الإدارية (إدارة مكتبية)'; location.href='#register'">سجل الآن</button>
             </div>
-            <div class="testi-card">
-                <p>"دبلوم الشبكات هنا هو الأقوى في المنطقة، الجانب العملي مكثف والمدربون متمكنون جداً من المادة العلمية."</p>
-                <div class="testi-info"><div class="avatar">👤</div><div><h4>م. خالد الشمري</h4><small>خريج دبلوم الشبكات</small></div></div>
+
+            <!-- دورات الحاسب -->
+            <div class="c-card">
+                <div class="c-img">
+                    <img src="https://pexels.com" alt="Office">
+                </div>
+                <div class="c-body">
+                    <h3>دورات الحاسب الآلي (أوفيس)</h3>
+                    <span class="duration">دورة تأهيل فني مكثفة</span>
+                    <ul>
+                        <li>إدخال بيانات ومعالجة نصوص</li>
+                        <li>إتقان حزمة Microsoft Office</li>
+                        <li>مهارات التقنية للموظف المعاصر</li>
+                    </ul>
+                </div>
+                <button class="enroll-btn" onclick="document.getElementById('fc').value='دورات الحاسب الآلي (أوفيس)'; location.href='#register'">سجل الآن</button>
             </div>
-        </div>
 
-        <h2 class="section-title">موقعنا في مدينة الخفجي 📍</h2>
-        <div class="map-box">
-            <iframe src="https://google.com" width="100%" height="100%" style="border:0;" allowfullscreen=""></iframe>
-        </div>
+            <!-- إنجليزية -->
+            <div class="c-card">
+                <div class="c-img">
+                    <img src="https://pexels.com" alt="English">
+                </div>
+                <div class="c-body">
+                    <h3>دورات اللغة الإنجليزية العامة</h3>
+                    <span class="duration">كافة المستويات من المبتدئ</span>
+                    <ul>
+                        <li>تطوير مهارات النطق والمحادثة</li>
+                        <li>تأسيس قواعد اللغة بأساليب حديثة</li>
+                        <li>الإنجليزية التخصصية للأعمال</li>
+                    </ul>
+                </div>
+                <button class="enroll-btn" onclick="document.getElementById('fc').value='دورات اللغة الإنجليزية'; location.href='#register'">سجل الآن</button>
+            </div>
 
-     
-          <!-- نموذج التسجيل المطور -->
-<section class="reg-full" id="register">
-    <h2>نموذج طلب التحاق رسمي (2026)</h2>
-    <!-- استبدل الرابط أدناه برابط Formspree الخاص بك -->
-    <form id="hrdiFinalForm">
-        <div class="form-row">
-            <div class="form-group"><label>الاسم الرباعي</label><input type="text" id="fn" name="Name" required></div>
-            <div class="form-group"><label>رقم الجوال</label><input type="tel" id="fp" name="Phone" required></div>
         </div>
-        <div class="form-row">
-            <div class="form-group"><label>رقم الهوية</label><input type="number" id="fi" name="ID" required></div>
-            <div class="form-group">
-                <label>البرنامج المطلوب</label>
-                <select id="fc" name="Course" required>
-                    <option value="دبلوم شبكات الحاسب">دبلوم شبكات الحاسب</option>
-                    <option value="دبلوم الإدارة المكتبية">دبلوم الإدارة المكتبية</option>
+    </div>
+
+    <section class="reg-section" id="register">
+        <h2 style="text-align:center; color:var(--primary); margin-bottom:40px; font-weight:900;">نموذج التسجيل المباشر</h2>
+        <form id="hrdiFinalForm">
+            <div class="form-row">
+                <input type="text" name="الاسم" id="fn" placeholder="الاسم الرباعي الكامل" required>
+                <input type="tel" name="الجوال" id="fp" placeholder="رقم الجوال (05xxxxxxxx)" required>
+            </div>
+            <div class="form-row">
+                <input type="text" name="الهوية" id="fi" placeholder="رقم الهوية الوطنية / الإقامة" required>
+                <select name="الدورة" id="fc" required>
+                    <option value="">-- اختر البرنامج التدريبي --</option>
+                    <option value="دبلوم الحاسب وتقنية المعلومات (شبكات)">دبلوم الحاسب وتقنية المعلومات (شبكات)</option>
+                    <option value="دبلوم التقنية الإدارية (إدارة مكتبية)">دبلوم التقنية الإدارية (إدارة مكتبية)</option>
+                    <option value="دورات الحاسب الآلي (أوفيس)">دورات الحاسب الآلي (أوفيس)</option>
                     <option value="دورات اللغة الإنجليزية">دورات اللغة الإنجليزية</option>
-                    <option value="دورات الحاسب الآلي">دورات الحاسب الآلي</option>
                 </select>
             </div>
-        </div>
-        <button type="submit" class="submit-btn" id="mainSubmitBtn">إرسال الطلب الآن ✅</button>
-    </form>
-</section>
+            <button type="submit" class="submit-btn" id="submitBtn">إرسال الطلب وحجز مقعد 🚀</button>
+        </form>
+    </section>
 
-<script>
-    document.getElementById('hrdiFinalForm').onsubmit = function(e) {
-        e.preventDefault(); // منع التعليق أو تحديث الصفحة
-        
-        const btn = document.getElementById('mainSubmitBtn');
-        btn.innerText = "جاري الإرسال...";
-        btn.disabled = true;
+    <!-- أيقونة الواتساب 966137675252 -->
+    <a href="https://wa.me/966137675252" class="wa-float" target="_blank">
+        <svg viewBox="0 0 448 512"><path d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l114.1-29.9c32.7 17.8 69.4 27.2 107.1 27.2 122.4 0 222-99.6 222-222 0-59.3-23-115.1-62.3-157.2zM223.9 446.7c-33.1 0-65.6-8.9-93.9-25.7l-6.7-4-69.8 18.3 18.7-68.1-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.5-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-5.5-2.8-23.4-8.6-44.6-27.5-16.5-14.7-27.6-32.8-30.8-38.4-3.2-5.6-.3-8.6 2.5-11.4 2.5-2.5 5.5-6.5 8.3-9.7 2.8-3.2 3.7-5.5 5.5-9.2 1.9-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 13.2 5.8 23.5 9.2 31.6 11.8 13.3 4.2 25.4 3.6 35 2.2 10.7-1.5 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"/></svg>
+    </a>
 
-        // 1. تجميع البيانات
-        const name = document.getElementById('fn').value;
-        const phone = document.getElementById('fp').value;
-        const idNum = document.getElementById('fi').value;
-        const course = document.getElementById('fc').value;
+    <footer>جميع الحقوق محفوظة لمعهد تطوير الموارد البشرية &copy; 2026</footer>
 
-        // 2. إرسال البيانات للإيميل في الخلفية (عبر Formspree)
-        // ملاحظة: ضع رابط Formspree الخاص بك هنا
-        fetch("https://formspree.io/f/xpqkyzrd", {
-            method: "POST",
-            body: new FormData(e.target),
-            headers: { 'Accept': 'application/json' }
-        }).then(response => {
-            // 3. بعد نجاح إرسال الإيميل (أو حتى لو فشل لضمان عدم توقف الزر) يتم التحويل للواتساب مباشرة
-            / 1. حدد رقم الواتساب الخاص بك هنا (بصيغة دولية وبدون أصفار أو علامة +)
-const myNumber = "966137675252"; 
+    <script>
+        document.getElementById('hrdiFinalForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submitBtn');
+            btn.innerText = "⏳ جاري إرسال طلبك...";
+            btn.disabled = true;
 
-// 2. تجهيز نص الرسالة وتشفيرها بشكل صحيح
-const msg = encodeURIComponent(`*طلب تسجيل جديد 2026*
-الاسم: ${name}
-الجوال: ${phone}
-الهوية: ${idNum}
-الدورة: ${course}`);
-
-// 3. التحويل للرابط الصحيح (لاحظ استخدام علامة $ قبل الأقواس)
-window.location.href = `https://whatsapp.com{myNumber}&text=${msg}`;
-    };
-
-    // وظيفة اختيار الدورة من البطاقات
-    function enroll(courseName) {
-        document.getElementById('fc').value = courseName;
-        document.getElementById('register').scrollIntoView({ behavior: 'smooth' });
-    }
-</script>
-<script>
-    document.querySelector('.reg-full form').addEventListener('submit', function(e) {
-        // منع الصفحة من التحديث التلقائي
-        e.preventDefault(); 
-        
-        // إظهار تنبيه للمستخدم
-        alert('✅ تم إرسال طلبك بنجاح! سيتواصل معك فريق القبول قريباً.');
-        
-        // مسح البيانات من الخانات بعد الإرسال
-        this.reset();
-    });
-</script>
+            fetch("https://formspree.io/f/xpqkyzrd", { 
+                method: "POST",
+                body: new FormData(this),
+                headers: { 'Accept': 'application/json' }
+            }).then(() => {
+                btn.innerText = "✅ تم استلام طلبك بنجاح!";
+                btn.style.backgroundColor = "#28a745";
+                btn.style.color = "white";
+                this.reset();
+            });
+        });
+    </script>
 </body>
 </html>
