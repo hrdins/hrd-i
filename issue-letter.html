@@ -9,7 +9,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Cairo', sans-serif; }
         body { background: var(--bg); padding-bottom: 50px; }
 
-        @page { size: A4; margin: 0; }
+        @page { size: A4; margin: -5; }
 
         /* منطقة التحكم (تختفي عند الطباعة) */
         .no-print-area { display: flex; flex-direction: column; align-items: center; padding: 40px 20px; }
@@ -28,7 +28,7 @@
             background: white; 
             width: 210mm; 
             min-height: 297mm; 
-            margin: 20px auto; 
+            margin: 10px auto; 
             padding: 20mm 25mm; 
             color: #000; 
             position: relative; 
@@ -41,15 +41,15 @@
         .letter-table { width: 100%; border-collapse: collapse; margin-bottom: 30px; }
         .letter-table th, .letter-table td { border: 1.5px solid #000; padding: 12px; text-align: center; font-size: 1.2rem; }
         .letter-table th { background: #f2f2f2; }
-        .letter-body { text-align: justify; font-size: 1.35rem; line-height: 2.2; margin-bottom: 80px; }
-        .letter-footer { display: flex; justify-content: flex-end; position: relative; margin-top: 70px; }
-        .sig-section { text-align: center; width: 200px; position: relative; }
+        .letter-body { text-align: justify; font-size: 1.25rem; line-height: 2.0; margin-bottom: 70px; }
+        .letter-footer { display: flex; justify-content: flex-end; position: relative; margin-top: 10px; }
+        .sig-section { text-align: center; width: 250px; position: relative; }
         
         .stamp-final { 
             position: absolute !important; 
-            top: -40px !important; 
+            top: -50px !important; 
            left: 330px !important; 
-            width: 210px !important; 
+            width: 220px !important; 
             opacity: 0.85; 
             transform: rotate(-10deg); 
             z-index: 9999; 
@@ -117,13 +117,13 @@
             <p>نرجو منكم تزويدنا بصورة من خطاب الموافقة بالتحاق المتدرب للدبلوم، حتى يتسنى لنا رفع بياناته إلى المؤسسة العامة للتدريب التقني والمهني لاعتماده.</p>
             <p><strong>وتفضلوا بقبول فائق الاحترام والتقدير،،،،</strong></p>
         </div>
+  
 
         <div class="letter-footer">
             <div class="sig-section">
-                <p style="font-weight: bold; font-size: 1.0rem;">مدير المعهد </p>
+              <p style="font-weight: bold; font-size: 1.0rem;">مدير المعهد </p>
  <img src="sign.png" class="sign-final">
 <p style="font-weight: 900; font-size: 1.1rem;">علي الحربي</p>
-
 
 
  
